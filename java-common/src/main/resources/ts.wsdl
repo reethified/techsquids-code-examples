@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ts="http://techsquids.com/ts/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ts" targetNamespace="http://techsquids.com/ts/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://techsquids.com/ts/" name="ts">
+            <!-- Request / response types -->
+                <xsd:element name="tsRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="year" type="ts:year"></xsd:element>
+                        <xsd:element name="month" type="ts:month"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="tsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                       <xsd:element name="year" type="ts:year"></xsd:element>
+                        <xsd:element name="month" type="ts:month"></xsd:element>
+                        <xsd:element name="status" type="ts:response"></xsd:element>
+                        <xsd:element name="output" type="xsd:string"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:simpleType name="year">
+                <xsd:restriction base="xsd:int">
+                    <xsd:minExclusive value="1970"></xsd:minExclusive>
+                    <xsd:maxExclusive value="9999"></xsd:maxExclusive>
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            <xsd:simpleType name="month">
+                <xsd:restriction base="xsd:int">
+                    <xsd:minInclusive value="1"></xsd:minInclusive>
+                    <xsd:maxInclusive value="12"></xsd:maxInclusive>
+                </xsd:restriction>
+            </xsd:simpleType>
+
+            
+            <xsd:complexType name="response">
+                <xsd:sequence>
+                    <xsd:element name="code" type="xsd:int"></xsd:element>
+                    <xsd:element name="message" type="xsd:string"></xsd:element>
+                    <xsd:element name="appCode">
+                        <xsd:annotation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="1"></xsd:enumeration>
+                                <xsd:enumeration value="2"></xsd:enumeration>
+                                <xsd:enumeration value="3"></xsd:enumeration>
+                                <xsd:enumeration value="4"></xsd:enumeration>
+                                <xsd:enumeration value="5"></xsd:enumeration>
+                                <xsd:enumeration value="6"></xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+
+         
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="getTSDataRequest">
+        <wsdl:part element="ts:tsRequest" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="getTSDataResponse">
+        <wsdl:part element="ts:tsResponse" name="parameters" />
+    </wsdl:message>
+
+    <wsdl:portType name="TSDataService">
+        <wsdl:operation name="getTSData">
+            <wsdl:input message="ts:getTSDataRequest" />
+            <wsdl:output message="ts:getTSDataResponse" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="TSDataServiceSOAP" type="ts:TSDataService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="getTSData">
+            <soap:operation soapAction="getTSData" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="TSDataService">
+        <wsdl:port binding="ts:TSDataServiceSOAP" name="TSDataServiceSOAP">
+            <soap:address location="https://techsquids.com/" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

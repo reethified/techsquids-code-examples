@@ -1,0 +1,4 @@
+CREATE '#table_path#TEST', {NAME => 'SE'}
+CREATE '#table_path#SAMPLE', {NAME => 'SA'} , {NAME => 'AD' , VERSIONS => 5}
+CREATE '#table_path#SAMPLE1', {NAME => 'FM'}
+disable '#table_path#TEST'
