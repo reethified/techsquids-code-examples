@@ -1,0 +1,4 @@
+gem install jekyll-import
+gem install hpricot
+gem install open_uri_redirections
+gem install reverse_markdown
