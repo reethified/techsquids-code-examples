@@ -8,7 +8,7 @@
 	<name>map-reduce</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<hadoop.version>1.2.1</hadoop.version>
+		<hadoop.version>3.2.3</hadoop.version>
 		<habse.version>0.94.9</habse.version>
 	</properties>
 	<dependencyManagement>
